@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <!-- Add your CSS and other meta tags here -->
+</head>
+<body>
+
+    {% include "navbar.html" %}
+    <div class="container mt-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="{% static 'bootstrap.bundle.min.js' %}"></script>
+    <!-- Add your JavaScript or other footer content here -->
+</body>
+</html>
