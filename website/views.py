@@ -74,6 +74,18 @@ def delete_record(request, pk):
     else:
         messages.success(request, "you need to login first....")
         return redirect("home")
+    
+@login_required    
+def update_record(request, pk):
+    current_record = Record.objects.get(id=pk)
+    form = AddRecordForm(request.POST, instance=current_record)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Record Updated successfully")
+        return redirect("home")
+    else:
+        form = AddRecordForm(instance=current_record)
+        return render(request, 'update_record.html', {'form':form})
 
 
 
