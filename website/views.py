@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import SignUpForm
+from .forms import SignUpForm, AddRecordForm
 from .models import Record
 
 # Create your views here.
@@ -73,3 +74,18 @@ def delete_record(request, pk):
     else:
         messages.success(request, "you need to login first....")
         return redirect("home")
+
+
+
+@login_required
+def add_record(request):
+    if request.method == "POST":
+        form = AddRecordForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Record Added successfully")
+            return redirect("home")
+
+    else:
+        form = AddRecordForm()
+        return render(request, 'add_record.html', {'form':form})
